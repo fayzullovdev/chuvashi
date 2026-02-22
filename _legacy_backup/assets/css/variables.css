@@ -1,0 +1,31 @@
+:root {
+    /* Colors */
+    --bg-dark: #0f0f12;
+    --bg-card: #16161a;
+    --bg-header: rgba(15, 15, 18, 0.95);
+    
+    --primary: #7d2ae8; /* Purple Neon */
+    --primary-hover: #9b57f2;
+    --accent: #00e5ff; /* Cyan Neon */
+    
+    --text-main: #ffffff;
+    --text-muted: #a1a1aa;
+    
+    --success: #00bd56;
+    --danger: #ff3333;
+    
+    /* Typography */
+    --font-main: 'Outfit', sans-serif;
+    
+    /* Spacing */
+    --container-width: 1200px;
+    --header-height: 80px;
+    
+    /* Effects */
+    --shadow-card: 0 4px 20px rgba(0,0,0,0.5);
+    --glow-primary: 0 0 15px rgba(125, 42, 232, 0.3);
+}
+
+body.light-mode {
+    /* Potential Light mode overrides if needed in future */
+}

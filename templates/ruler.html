@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rules | chuvashi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/static/assets/css/style.css">
+    <style>
+        .rules-page {
+            padding: 110px 2.5% 28px 2.5%;
+            min-height: 100vh;
+        }
+
+        .rules-layout {
+            display: grid;
+            grid-template-columns: 310px minmax(0, 1fr);
+            gap: 24px;
+        }
+
+        .rules-sidebar {
+            background: linear-gradient(180deg, rgba(10, 18, 35, 0.95), rgba(5, 9, 21, 0.92));
+            border: 1px solid rgba(120, 170, 255, 0.16);
+            border-radius: 18px;
+            padding: 18px;
+            position: sticky;
+            top: 96px;
+            height: fit-content;
+            box-shadow: inset 0 0 60px rgba(18, 49, 110, 0.15);
+        }
+
+        .rules-project {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #d4def8;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            font-size: 1.05rem;
+            margin: 4px 0 18px 0;
+        }
+
+        .rules-project i {
+            color: #39b9ff;
+            font-size: 0.85rem;
+        }
+
+        .rules-back {
+            width: 100%;
+            margin-bottom: 14px;
+            justify-content: flex-start;
+            color: #d9e5ff;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            padding: 14px 16px;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .rules-back:hover {
+            border-color: rgba(57, 185, 255, 0.45);
+            background: rgba(57, 185, 255, 0.08);
+        }
+
+        .rules-tabs {
+            display: grid;
+            gap: 10px;
+        }
+
+        .rules-tab {
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            background: rgba(255, 255, 255, 0.03);
+            color: #b2bfd8;
+            border-radius: 14px;
+            padding: 16px;
+            text-align: left;
+            font-size: 1.05rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .rules-tab:hover {
+            border-color: rgba(57, 185, 255, 0.35);
+            color: #d8e9ff;
+        }
+
+        .rules-tab.active {
+            border-color: #3188ff;
+            color: #eaf5ff;
+            background: linear-gradient(120deg, rgba(49, 136, 255, 0.28), rgba(37, 214, 255, 0.18));
+            box-shadow: 0 0 18px rgba(58, 148, 255, 0.25);
+        }
+
+        .rules-main {
+            background: linear-gradient(180deg, rgba(6, 12, 25, 0.95), rgba(4, 8, 18, 0.92));
+            border: 1px solid rgba(120, 170, 255, 0.12);
+            border-radius: 20px;
+            padding: 26px;
+        }
+
+        .rules-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 18px;
+        }
+
+        .rules-title {
+            margin: 0;
+            font-size: clamp(2rem, 4vw, 3.4rem);
+            font-weight: 800;
+            background: linear-gradient(90deg, #3a80ff, #38cfff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .rules-search-wrap {
+            width: min(550px, 100%);
+            position: relative;
+        }
+
+        .rules-search-wrap i {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #7f8cab;
+        }
+
+        .rules-search {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 16px;
+            padding: 14px 16px 14px 46px;
+            color: #ecf4ff;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .rules-search:focus {
+            border-color: #3ba2ff;
+            box-shadow: 0 0 0 2px rgba(59, 162, 255, 0.18);
+        }
+
+        .rules-section-name {
+            margin: 6px 0 14px 2px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-weight: 700;
+            color: #d5def2;
+        }
+
+        .rules-cards {
+            display: grid;
+            gap: 18px;
+        }
+
+        .rule-card {
+            display: grid;
+            grid-template-columns: 112px 1fr;
+            gap: 18px;
+            align-items: center;
+            padding: 22px;
+            border-radius: 22px;
+            border: 1px solid rgba(93, 150, 255, 0.24);
+            background:
+                radial-gradient(1200px 240px at 80% 0%, rgba(45, 116, 244, 0.22), transparent 50%),
+                linear-gradient(120deg, rgba(12, 24, 49, 0.95), rgba(13, 27, 54, 0.95));
+            box-shadow: inset 0 0 60px rgba(15, 40, 88, 0.18);
+        }
+
+        .rule-num {
+            width: 92px;
+            height: 92px;
+            border-radius: 20px;
+            display: grid;
+            place-items: center;
+            font-size: 2rem;
+            font-weight: 800;
+            color: #eff8ff;
+            background: linear-gradient(140deg, #3d79ff, #3ed2ff);
+            box-shadow: 0 0 20px rgba(69, 157, 255, 0.38);
+        }
+
+        .rule-content h4 {
+            margin: 0 0 8px 0;
+            font-size: 2rem;
+            font-weight: 800;
+            line-height: 1.1;
+            color: #f2f6ff;
+        }
+
+        .rule-content p {
+            margin: 0;
+            color: #9faecc;
+            font-size: 1.12rem;
+            line-height: 1.55;
+        }
+
+        .rule-penalty {
+            margin-top: 12px;
+            color: #76aaff;
+            font-size: 1.1rem;
+            font-weight: 800;
+        }
+
+        .rules-empty {
+            text-align: center;
+            color: #8a97b6;
+            padding: 24px 8px 8px 8px;
+            display: none;
+        }
+
+        @media (max-width: 1100px) {
+            .rules-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .rules-sidebar {
+                position: static;
+            }
+
+            .rules-tabs {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .rules-head {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .rules-search-wrap {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 780px) {
+            .rules-page {
+                padding-top: 96px;
+            }
+
+            .rules-main {
+                padding: 18px;
+            }
+
+            .rules-tabs {
+                grid-template-columns: 1fr;
+            }
+
+            .rule-card {
+                grid-template-columns: 1fr;
+            }
+
+            .rule-num {
+                width: 78px;
+                height: 78px;
+                font-size: 1.7rem;
+            }
+
+            .rule-content h4 {
+                font-size: 1.45rem;
+            }
+
+            .rule-content p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <a href="/" class="logo">chuvashi</a>
+        <div class="nav-links">
+            <a href="/" class="nav-link" data-i18n="nav.home">Home</a>
+            <a href="/shop" class="nav-link" data-i18n="nav.store">Store</a>
+            <a href="/forum" class="nav-link" data-i18n="nav.forum">Forum</a>
+            <a href="/servers" class="nav-link" data-i18n="nav.servers">Servers</a>
+            <a href="/ruler" class="nav-link active" data-i18n="nav.ruler">Ruler</a>
+            <a href="/bans" class="nav-link" data-i18n="nav.bans">Bans</a>
+        </div>
+        <div class="nav-actions"></div>
+    </nav>
+
+    <main class="rules-page">
+        <div class="rules-layout">
+            <aside class="rules-sidebar">
+                <div class="rules-project"><i class="fas fa-circle"></i> <span data-i18n="rules.project">PROJECT RULES</span></div>
+                <a href="/" class="rules-back btn"><i class="fas fa-arrow-left"></i> <span data-i18n="rules.back">Back</span></a>
+                <div class="rules-tabs" id="rules-tabs"></div>
+            </aside>
+
+            <section class="rules-main">
+                <div class="rules-head">
+                    <h1 class="rules-title" id="rules-title">Gameplay</h1>
+                    <div class="rules-search-wrap">
+                        <i class="fas fa-search"></i>
+                        <input id="rules-search" class="rules-search" type="text"
+                            data-i18n-placeholder="rules.search" placeholder="Search by number, title, text, or penalty...">
+                    </div>
+                </div>
+                <div class="rules-section-name" id="rules-section-name">GAMEPLAY</div>
+                <p id="rules-empty" class="rules-empty" data-i18n="rules.empty">No rules found for this search.</p>
+                <div id="rules-cards" class="rules-cards"></div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 chuvashi Project. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const sectionBlueprints = [
+            {
+                key: "gameplay",
+                title: "Gameplay",
+                heading: "GAMEPLAY",
+                subjects: ["cheat tools", "automation scripts", "aim assistance", "wall vision modules", "macro chains", "exploit setup", "smurf boosting", "round sabotage"],
+                actions: ["is detected", "is distributed", "is configured", "is reused", "is hidden", "is promoted", "is traded", "is activated"],
+                impacts: ["during ranked play", "during event queue", "during official matches", "during moderator check", "during clan games", "during duel mode", "during warmup abuse", "during anti-cheat review"],
+                evidence: ["server logs", "demo timeline", "voice and chat records", "anti-cheat signature", "manual observer report", "round-by-round replay", "account behavior profile", "admin audit report"],
+                policies: ["strictly prohibited", "treated as severe violation", "escalated immediately", "reviewed with zero tolerance", "sent to final moderation", "stored in violation history", "linked to account sanctions", "reviewed with priority"],
+                penalties: ["Ban for 3 days.", "Ban for 7 days.", "Ban for 14 days.", "Ban for 30 days.", "Ban for 60 days.", "Permanent ban."]
+            },
+            {
+                key: "communication",
+                title: "Communication",
+                heading: "COMMUNICATION",
+                subjects: ["toxic language", "direct insults", "spam bursts", "targeted harassment", "hate messaging", "voice disruption", "threat behavior", "external advertising"],
+                actions: ["is repeated", "is coordinated", "is escalated", "is disguised", "is continued", "is copied", "is amplified", "is provoked"],
+                impacts: ["in global chat", "in team chat", "in voice channels", "in support messages", "in match lobby", "in tournament rooms", "in Discord bridge", "in player reports"],
+                evidence: ["chat transcript", "voice snapshot", "moderator screenshots", "timeline correlation", "flagged keywords", "multiple user reports", "appeal history", "message archive"],
+                policies: ["handled as abuse", "considered community risk", "placed under moderation review", "logged for escalation", "counted as repeat offense", "applies to all channels", "reviewed by staff lead", "mapped to sanction ladder"],
+                penalties: ["Mute for 2 hours.", "Mute for 12 hours.", "Mute for 24 hours.", "Ban for 3 days.", "Ban for 14 days.", "Permanent ban."]
+            },
+            {
+                key: "administration",
+                title: "For Administration",
+                heading: "FOR ADMINISTRATION",
+                subjects: ["unfair sanctioning", "ignored reports", "privilege misuse", "conflict of interest", "biased moderation", "data leakage", "log manipulation", "protocol breach"],
+                actions: ["is confirmed", "is repeated", "is hidden", "is escalated", "is documented", "is reported", "is audited", "is validated"],
+                impacts: ["during peak hours", "during tournament operations", "during probation shifts", "during dispute resolution", "during internal review", "during emergency moderation", "during player appeal", "during final decision stage"],
+                evidence: ["staff audit log", "internal evidence file", "ticket timeline", "review board notes", "cross-check report", "moderator witness statement", "tool usage metrics", "policy violation map"],
+                policies: ["requires immediate escalation", "triggers authority review", "requires independent check", "moves to disciplinary board", "freezes privileges instantly", "records incident permanently", "updates staff status", "executes corrective action"],
+                penalties: ["Oral warning.", "Strict warning.", "Role suspension for 7 days.", "Role suspension for 30 days.", "Privilege removal.", "Privilege removal and ban."]
+            },
+            {
+                key: "other",
+                title: "Other",
+                heading: "OTHER",
+                subjects: ["ban evasion", "identity spoofing", "payment fraud", "event sabotage", "evidence forgery", "multi-account abuse", "project defamation", "policy manipulation"],
+                actions: ["is attempted", "is organized", "is coordinated", "is repeated", "is concealed", "is expanded", "is escalated", "is recorded"],
+                impacts: ["after prior sanctions", "during seasonal events", "during support appeal", "during partner programs", "during social announcements", "during giveaway windows", "during queue peak", "during moderation lock"],
+                evidence: ["security trace", "payment verification", "identity check", "network pattern report", "anti-abuse markers", "partner complaint logs", "ticket review summary", "rule enforcement history"],
+                policies: ["handled as critical risk", "escalated without delay", "reviewed with high priority", "applies account-wide", "locks related accounts", "forwards to final review", "requires full appeal package", "blocks bypass attempts"],
+                penalties: ["Ban for 7 days.", "Ban for 14 days.", "Ban for 30 days.", "Ban for 90 days.", "Permanent ban.", "Permanent ban without appeal."]
+            }
+        ];
+
+        const additionsA = [
+            "Repeat offense increases sanction tier.",
+            "Refusal to cooperate extends sanction length.",
+            "Appeal without evidence is rejected.",
+            "Team-based abuse applies to all participants.",
+            "Intentional behavior triggers maximum action.",
+            "Bypass attempts are tracked as separate violations.",
+            "Final review decision is binding.",
+            "Mitigation is possible only once per case."
+        ];
+
+        const additionsB = [
+            "This clause remains active across all queues.",
+            "Evidence must be retained for staff inspection.",
+            "Sanction history affects future decisions.",
+            "Cross-account links are reviewed together.",
+            "Escalation path follows internal policy.",
+            "Moderation may lock account features.",
+            "Priority handling applies for critical incidents.",
+            "System alerts may trigger manual inspection."
+        ];
+
+        const globalRuleFingerprint = new Set();
+
+        function buildUniqueRules(section, sectionIndex, count) {
+            const pool = [];
+            for (const s of section.subjects) {
+                for (const a of section.actions) {
+                    for (const c of section.impacts) {
+                        pool.push({ s, a, c });
+                    }
+                }
+            }
+
+            const out = [];
+            let pick = 0;
+            while (out.length < count && pick < pool.length) {
+                const idx = (pick * 17 + sectionIndex * 13) % pool.length;
+                const combo = pool[idx];
+                const e = section.evidence[(pick * 7 + 3) % section.evidence.length];
+                const p = section.policies[(pick * 11 + 4) % section.policies.length];
+                const penalty = section.penalties[(pick * 13 + 5) % section.penalties.length];
+                const x1 = additionsA[(pick * 2 + sectionIndex) % additionsA.length];
+                const x2 = additionsB[(pick * 4 + sectionIndex) % additionsB.length];
+
+                const title = `${combo.s.toUpperCase()} / ${combo.a.toUpperCase()} / ${combo.c.toUpperCase()}`;
+                const text = `${combo.s} ${combo.a} ${combo.c}; evidence source: ${e}. Case handling: ${p}. ${x1} ${x2}`;
+                const fingerprint = `${title}|${text}|${penalty}`;
+
+                if (!globalRuleFingerprint.has(fingerprint)) {
+                    globalRuleFingerprint.add(fingerprint);
+                    out.push({
+                        id: `${sectionIndex + 1}.${out.length + 1}`,
+                        title,
+                        text,
+                        penalty
+                    });
+                }
+                pick += 1;
+            }
+
+            return out;
+        }
+
+        const rulesPerSection = 50;
+        const sections = sectionBlueprints.map((section, sectionIndex) => ({
+            ...section,
+            rules: buildUniqueRules(section, sectionIndex, rulesPerSection)
+        }));
+
+        const SECTION_LOCALE = {
+            en: {
+                gameplay: { title: "Gameplay", heading: "GAMEPLAY" },
+                communication: { title: "Communication", heading: "COMMUNICATION" },
+                administration: { title: "For Administration", heading: "FOR ADMINISTRATION" },
+                other: { title: "Other", heading: "OTHER" }
+            },
+            ru: {
+                gameplay: { title: "\u0418\u0433\u0440\u043e\u0432\u043e\u0439 \u043f\u0440\u043e\u0446\u0435\u0441\u0441", heading: "\u0418\u0413\u0420\u041e\u0412\u041e\u0419 \u041f\u0420\u041e\u0426\u0415\u0421\u0421" },
+                communication: { title: "\u041e\u0431\u0449\u0435\u043d\u0438\u0435", heading: "\u041e\u0411\u0429\u0415\u041d\u0418\u0415" },
+                administration: { title: "\u0414\u043b\u044f \u0430\u0434\u043c\u0438\u043d\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u0438", heading: "\u0414\u041b\u042f \u0410\u0414\u041c\u0418\u041d\u0418\u0421\u0422\u0420\u0410\u0426\u0418\u0418" },
+                other: { title: "\u041f\u0440\u043e\u0447\u0435\u0435", heading: "\u041f\u0420\u041e\u0427\u0415\u0415" }
+            }
+        };
+
+        const RU_RULE_TITLE = [
+            "\u041d\u0430\u0440\u0443\u0448\u0435\u043d\u0438\u0435 \u0440\u0435\u0433\u043b\u0430\u043c\u0435\u043d\u0442\u0430",
+            "\u041a\u0440\u0438\u0442\u0438\u0447\u043d\u043e\u0435 \u043d\u0430\u0440\u0443\u0448\u0435\u043d\u0438\u0435",
+            "\u041f\u0440\u043e\u0446\u0435\u0441\u0441\u0443\u0430\u043b\u044c\u043d\u043e\u0435 \u043d\u0430\u0440\u0443\u0448\u0435\u043d\u0438\u0435",
+            "\u0417\u0430\u0444\u0438\u043a\u0441\u0438\u0440\u043e\u0432\u0430\u043d\u043d\u044b\u0439 \u0438\u043d\u0446\u0438\u0434\u0435\u043d\u0442",
+            "\u041d\u0430\u0440\u0443\u0448\u0435\u043d\u0438\u0435 \u043f\u043e\u0440\u044f\u0434\u043a\u0430",
+            "\u0414\u0435\u043b\u043e \u043f\u043e \u043f\u0440\u0430\u0432\u0438\u043b\u0430\u043c"
+        ];
+        const RU_RULE_LINE_A = [
+            "\u041d\u0430\u0440\u0443\u0448\u0435\u043d\u0438\u0435 \u0437\u0430\u0444\u0438\u043a\u0441\u0438\u0440\u043e\u0432\u0430\u043d\u043e \u0441\u0438\u0441\u0442\u0435\u043c\u043e\u0439 \u043c\u043e\u043d\u0438\u0442\u043e\u0440\u0438\u043d\u0433\u0430 \u0438 \u043f\u0435\u0440\u0435\u0434\u0430\u043d\u043e \u043c\u043e\u0434\u0435\u0440\u0430\u0442\u043e\u0440\u0443.",
+            "\u0418\u043d\u0446\u0438\u0434\u0435\u043d\u0442 \u043f\u043e\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0435\u043d \u043f\u043e \u043b\u043e\u0433\u0430\u043c \u0438 \u0432\u043d\u0443\u0442\u0440\u0438\u0438\u0433\u0440\u043e\u0432\u043e\u043c\u0443 \u043e\u0442\u0447\u0435\u0442\u0443.",
+            "\u041a\u0435\u0439\u0441 \u0437\u0430\u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0438\u0440\u043e\u0432\u0430\u043d \u0432 \u0441\u0438\u0441\u0442\u0435\u043c\u0435 \u0441\u0430\u043d\u043a\u0446\u0438\u0439 \u043f\u0440\u043e\u0435\u043a\u0442\u0430.",
+            "\u041f\u043e \u043a\u0435\u0439\u0441\u0443 \u0432\u044b\u043f\u043e\u043b\u043d\u0435\u043d\u0430 \u043f\u043e\u0432\u0442\u043e\u0440\u043d\u0430\u044f \u043f\u0440\u043e\u0432\u0435\u0440\u043a\u0430 \u0438 \u043f\u0440\u0438\u043d\u044f\u0442\u043e \u0440\u0435\u0448\u0435\u043d\u0438\u0435.",
+            "\u041d\u0430\u0440\u0443\u0448\u0435\u043d\u0438\u0435 \u043a\u0432\u0430\u043b\u0438\u0444\u0438\u0446\u0438\u0440\u043e\u0432\u0430\u043d\u043e \u043a\u0430\u043a \u043d\u0435\u0441\u043e\u0432\u043c\u0435\u0441\u0442\u0438\u043c\u043e\u0435 \u0441 \u043f\u043e\u043b\u0438\u0442\u0438\u043a\u043e\u0439 \u0441\u0435\u0440\u0432\u0435\u0440\u0430.",
+            "\u0418\u043d\u0446\u0438\u0434\u0435\u043d\u0442 \u043e\u0431\u0440\u0430\u0431\u043e\u0442\u0430\u043d \u043f\u043e \u043f\u0440\u0438\u043e\u0440\u0438\u0442\u0435\u0442\u043d\u043e\u043c\u0443 \u0440\u0435\u0433\u043b\u0430\u043c\u0435\u043d\u0442\u0443."
+        ];
+        const RU_RULE_LINE_B = [
+            "\u041f\u0440\u0438 \u043f\u043e\u0432\u0442\u043e\u0440\u0435 \u0441\u0440\u043e\u043a \u043d\u0430\u043a\u0430\u0437\u0430\u043d\u0438\u044f \u0443\u0432\u0435\u043b\u0438\u0447\u0438\u0432\u0430\u0435\u0442\u0441\u044f.",
+            "\u0410\u043f\u0435\u043b\u043b\u044f\u0446\u0438\u044f \u043f\u0440\u0438\u043d\u0438\u043c\u0430\u0435\u0442\u0441\u044f \u0442\u043e\u043b\u044c\u043a\u043e \u0441 \u0434\u043e\u043a\u0430\u0437\u0430\u0442\u0435\u043b\u044c\u043d\u043e\u0439 \u0431\u0430\u0437\u043e\u0439.",
+            "\u041f\u043e\u043f\u044b\u0442\u043a\u0430 \u043e\u0431\u0445\u043e\u0434\u0430 \u0441\u0430\u043d\u043a\u0446\u0438\u0438 \u0444\u0438\u043a\u0441\u0438\u0440\u0443\u0435\u0442\u0441\u044f \u043a\u0430\u043a \u043e\u0442\u0434\u0435\u043b\u044c\u043d\u043e\u0435 \u043d\u0430\u0440\u0443\u0448\u0435\u043d\u0438\u0435.",
+            "\u0420\u0435\u0448\u0435\u043d\u0438\u0435 \u0441\u0442\u0430\u0440\u0448\u0435\u0433\u043e \u043c\u043e\u0434\u0435\u0440\u0430\u0442\u043e\u0440\u0430 \u0441\u0447\u0438\u0442\u0430\u0435\u0442\u0441\u044f \u043e\u043a\u043e\u043d\u0447\u0430\u0442\u0435\u043b\u044c\u043d\u044b\u043c.",
+            "\u0414\u0430\u043d\u043d\u044b\u0439 \u043f\u0443\u043d\u043a\u0442 \u0434\u0435\u0439\u0441\u0442\u0432\u0443\u0435\u0442 \u0432\u043e \u0432\u0441\u0435\u0445 \u0440\u0435\u0436\u0438\u043c\u0430\u0445 \u043f\u0440\u043e\u0435\u043a\u0442\u0430.",
+            "\u041f\u0440\u0438 \u0433\u0440\u0443\u043f\u043f\u043e\u0432\u043e\u043c \u0438\u043d\u0446\u0438\u0434\u0435\u043d\u0442\u0435 \u0441\u0430\u043d\u043a\u0446\u0438\u044f \u043f\u0440\u0438\u043c\u0435\u043d\u044f\u0435\u0442\u0441\u044f \u043a \u0432\u0441\u0435\u043c \u0443\u0447\u0430\u0441\u0442\u043d\u0438\u043a\u0430\u043c."
+        ];
+
+        function mapPenaltyToRu(penalty, idx) {
+            if (penalty.includes('Permanent')) return '\u041f\u0435\u0440\u043c\u0430\u043d\u0435\u043d\u0442\u043d\u044b\u0439 \u0431\u0430\u043d.';
+            if (penalty.includes('90')) return '\u0411\u0430\u043d \u043d\u0430 90 \u0434\u043d\u0435\u0439.';
+            if (penalty.includes('60')) return '\u0411\u0430\u043d \u043d\u0430 60 \u0434\u043d\u0435\u0439.';
+            if (penalty.includes('30')) return '\u0411\u0430\u043d \u043d\u0430 30 \u0434\u043d\u0435\u0439.';
+            if (penalty.includes('14')) return '\u0411\u0430\u043d \u043d\u0430 14 \u0434\u043d\u0435\u0439.';
+            if (penalty.includes('7')) return '\u0411\u0430\u043d \u043d\u0430 7 \u0434\u043d\u0435\u0439.';
+            if (penalty.includes('3')) return '\u0411\u0430\u043d \u043d\u0430 3 \u0434\u043d\u044f.';
+            if (penalty.includes('Mute')) return idx % 2 === 0 ? '\u041c\u0443\u0442 \u043d\u0430 12 \u0447\u0430\u0441\u043e\u0432.' : '\u041c\u0443\u0442 \u043d\u0430 24 \u0447\u0430\u0441\u0430.';
+            return '\u0421\u0430\u043d\u043a\u0446\u0438\u044f \u043f\u043e \u0440\u0435\u0448\u0435\u043d\u0438\u044e \u0430\u0434\u043c\u0438\u043d\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u0438.';
+        }
+
+        let activeKey = sections[0].key;
+
+        function getActiveSection() {
+            return sections.find(s => s.key === activeKey) || sections[0];
+        }
+
+        function getLocale() {
+            if (typeof window.getCurrentLanguage === "function") return window.getCurrentLanguage();
+            return "en";
+        }
+
+        function getSectionLabel(section, field) {
+            const lang = getLocale();
+            const map = SECTION_LOCALE[lang] || SECTION_LOCALE.en;
+            return (map[section.key] && map[section.key][field]) || section[field] || "";
+        }
+
+        function renderTabs() {
+            const tabs = document.getElementById("rules-tabs");
+            tabs.innerHTML = sections.map(section => `
+                <button class="rules-tab ${section.key === activeKey ? "active" : ""}" data-key="${section.key}">
+                    ${getSectionLabel(section, "title")}
+                </button>
+            `).join("");
+
+            tabs.querySelectorAll(".rules-tab").forEach(btn => {
+                btn.addEventListener("click", () => {
+                    activeKey = btn.dataset.key;
+                    document.getElementById("rules-search").value = "";
+                    renderTabs();
+                    renderRules("");
+                });
+            });
+        }
+
+        function renderRules(query) {
+            const section = getActiveSection();
+            const q = query.trim().toLowerCase();
+            const list = q
+                ? section.rules.filter(rule =>
+                    rule.id.toLowerCase().includes(q) ||
+                    rule.title.toLowerCase().includes(q) ||
+                    rule.text.toLowerCase().includes(q) ||
+                    rule.penalty.toLowerCase().includes(q)
+                )
+                : section.rules;
+
+            document.getElementById("rules-title").textContent = getSectionLabel(section, "title");
+            document.getElementById("rules-section-name").textContent = getSectionLabel(section, "heading");
+
+            const cards = document.getElementById("rules-cards");
+            const empty = document.getElementById("rules-empty");
+            empty.style.display = list.length ? "none" : "block";
+            const isRu = getLocale() === "ru";
+
+            cards.innerHTML = list.map((rule, idx) => {
+                const displayTitle = isRu
+                    ? `${RU_RULE_TITLE[idx % RU_RULE_TITLE.length]} #${rule.id}`
+                    : rule.title;
+                const displayText = isRu
+                    ? `${RU_RULE_LINE_A[idx % RU_RULE_LINE_A.length]} ${RU_RULE_LINE_B[idx % RU_RULE_LINE_B.length]}`
+                    : rule.text;
+                const displayPenalty = isRu ? mapPenaltyToRu(rule.penalty, idx) : rule.penalty;
+                return `
+                <article class="rule-card">
+                    <div class="rule-num">${rule.id}</div>
+                    <div class="rule-content">
+                        <h4>${displayTitle}</h4>
+                        <p>${displayText}</p>
+                        <div class="rule-penalty">${displayPenalty}</div>
+                    </div>
+                </article>
+            `;
+            }).join("");
+        }
+
+        document.getElementById("rules-search").addEventListener("input", (e) => renderRules(e.target.value));
+        window.refreshRulesLocale = function refreshRulesLocale() {
+            renderTabs();
+            renderRules(document.getElementById("rules-search").value || "");
+        };
+        renderTabs();
+        renderRules("");
+    </script>
+    <script src="/static/assets/js/app.js"></script>
+</body>
+
+</html>

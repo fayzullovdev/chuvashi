@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Do'kon - Fgaming</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/main.css">
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="container header-inner">
+            <a href="index.html" class="logo">Fgaming<span style="color:var(--accent)">.</span></a>
+
+            <nav>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html" class="nav-link">Bosh Sahifa</a></li>
+                    <li><a href="servers.html" class="nav-link">Serverlar</a></li>
+                    <li><a href="shop.html" class="nav-link active">Do'kon</a></li>
+                    <li><a href="rules.html" class="nav-link">Qoidalar</a></li>
+                    <li><a href="#" class="nav-link profile-link auth-button"></a></li>
+                </ul>
+            </nav>
+
+            <div class="menu-toggle" id="menuToggle">☰</div>
+        </div>
+    </header>
+
+    <!-- Steam Auth Modal -->
+    <div class="steam-auth-modal" id="steamAuthModal">
+        <div class="steam-auth-content">
+            <button class="close-modal" onclick="closeSteamAuth()">×</button>
+            <h2>Steam orqali kirish</h2>
+            <p>Foydalanish uchun Steam akkauntingiz orqali tizimga kiring yoki ro'yxatdan o'ting.</p>
+            <div class="steam-auth-buttons">
+                <button class="btn-steam-login" onclick="loginWithSteam(); closeSteamAuth();">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                    </svg>
+                    Kirish
+                </button>
+                <button class="btn-steam-register" onclick="registerWithSteam(); closeSteamAuth();">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                    </svg>
+                    Ro'yxatdan o'tish
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+        <div class="container page-header">
+            <h1>Privilegiyalar Do'koni</h1>
+            <p>Serverda qo'shimcha imkoniyatlarga ega bo'ling.</p>
+        </div>
+
+        <div class="container">
+            <div class="pricing-grid">
+                <!-- VIP -->
+                <div class="pricing-card">
+                    <div class="card-header">
+                        <h3>VIP</h3>
+                        <div class="price">15,000 UZS <span class="period">/ oy</span></div>
+                    </div>
+                    <ul class="features-list">
+                        <li>✅ Chatda [VIP] prefiksi</li>
+                        <li>✅ Slot rezervatsiyasi</li>
+                        <li>✅ Double Jump</li>
+                        <li>❌ Admin menyusi</li>
+                        <li>❌ Ban/Kick huquqi</li>
+                    </ul>
+                    <button class="btn btn-outline" onclick="openModal('VIP')">Sotib Olish</button>
+                </div>
+
+                <!-- ADMIN -->
+                <div class="pricing-card featured">
+                    <div class="card-badge">TAVSIYA</div>
+                    <div class="card-header">
+                        <h3>ADMIN</h3>
+                        <div class="price">30,000 UZS <span class="period">/ oy</span></div>
+                    </div>
+                    <ul class="features-list">
+                        <li>✅ Chatda [ADMIN] prefiksi</li>
+                        <li>✅ Slot rezervatsiyasi</li>
+                        <li>✅ Double Jump + Skinlar</li>
+                        <li>✅ Admin menyusi</li>
+                        <li>✅ Kick huquqi</li>
+                    </ul>
+                    <button class="btn btn-primary" onclick="openModal('ADMIN')">Sotib Olish</button>
+                </div>
+
+                <!-- OWNER -->
+                <div class="pricing-card">
+                    <div class="card-header">
+                        <h3>OWNER</h3>
+                        <div class="price">80,000 UZS <span class="period">/ oy</span></div>
+                    </div>
+                    <ul class="features-list">
+                        <li>✅ Barcha huquqlar</li>
+                        <li>✅ Slot rezervatsiyasi</li>
+                        <li>✅ Cheksiz imkoniyatlar</li>
+                        <li>✅ To'liq Admin menyu</li>
+                        <li>✅ Ban/Kick/Slay/Map</li>
+                    </ul>
+                    <button class="btn btn-outline" onclick="openModal('OWNER')">Sotib Olish</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="purchaseModal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal()">×</button>
+            <h2 id="modalTitle">Sotib Olish</h2>
+            <p>To'lovni amalga oshirish uchun quyidagi usulni tanlang:</p>
+
+            <div class="payment-methods">
+                <button class="pay-btn">Click</button>
+                <button class="pay-btn">Payme</button>
+            </div>
+
+            <div class="input-group">
+                <label>Steam ID yoki Nickname:</label>
+                <input type="text" placeholder="SteamID kiriting...">
+            </div>
+
+            <button class="btn btn-primary" style="width:100%">To'lash</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-inner">
+            <div class="footer-logo">
+                <h3>Fgaming</h3>
+                <p style="color:var(--text-muted); font-size: 0.9rem;">&copy; 2024 Barcha huquqlar himoyalangan.</p>
+            </div>
+            <div class="socials" style="display:flex; gap:15px;">
+                <a href="https://discord.gg" target="_blank" style="color:var(--text-muted); transition: color 0.3s;"
+                    onmouseover="this.style.color='#7289da'"
+                    onmouseout="this.style.color='var(--text-muted)'">Discord</a>
+                <a href="https://t.me" target="_blank" style="color:var(--text-muted); transition: color 0.3s;"
+                    onmouseover="this.style.color='#0088cc'"
+                    onmouseout="this.style.color='var(--text-muted)'">Telegram</a>
+                <a href="https://youtube.com" target="_blank" style="color:var(--text-muted); transition: color 0.3s;"
+                    onmouseover="this.style.color='#ff0000'"
+                    onmouseout="this.style.color='var(--text-muted)'">YouTube</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="assets/js/app.js"></script>
+    <script src="assets/js/auth.js"></script>
+    <script src="assets/js/steam-auth.js"></script>
+</body>
+
+</html>

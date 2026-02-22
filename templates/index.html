@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>chuvashi | Premium Gaming Community</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="/static/assets/css/style.css">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <a href="/" class="logo">chuvashi</a>
+        <div class="nav-links">
+            <a href="/" class="nav-link active" data-i18n="nav.home">Home</a>
+            <a href="/shop" class="nav-link" data-i18n="nav.store">Store</a>
+            <a href="/forum" class="nav-link" data-i18n="nav.forum">Forum</a>
+            <a href="/servers" class="nav-link" data-i18n="nav.servers">Servers</a>
+            <a href="/ruler" class="nav-link" data-i18n="nav.ruler">Ruler</a>
+            <a href="/bans" class="nav-link" data-i18n="nav.bans">Bans</a>
+        </div>
+
+        <div class="nav-actions">
+
+        </div>
+    </nav>
+
+
+    <header class="hero">
+        <div class="hero-content">
+            <h1>DOMINATE <br><span>THE SERVER</span></h1>
+            <p>Join the most advanced gaming community. Experience low latency, premium features, and competitive
+                gameplay like never before.</p>
+
+            <div style="display: flex; gap: 1rem;">
+                <a href="/shop" class="btn btn-primary">Visit Store <i class="fas fa-arrow-right"></i></a>
+                <a href="#news" class="btn btn-glass">Read News</a>
+            </div>
+
+
+
+        </div>
+
+        <!-- Decoration (Optional: Could be an image or 3D element) -->
+        <div style="position: absolute; right: 5%; top: 50%; transform: translateY(-50%); opacity: 0.5; z-index: 1;">
+            <i class="fas fa-gamepad" style="font-size: 20rem; color: var(--glass-border);"></i>
+        </div>
+    </header>
+
+    <!-- News Section -->
+    <section id="news" class="section">
+        <h2 class="section-title">Latest <span>News</span></h2>
+        <div id="news-grid" class="card-grid">
+            <!-- News items injected by JS -->
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div style="text-align: left; max-width: 300px;">
+                <a href="#" class="logo" style="font-size: 1.5rem;">chuvashi</a>
+                <p style="margin-top: 1rem; color: var(--text-muted);">The best place to play. Join our discord and
+                    start your journey today.</p>
+            </div>
+
+            <div>
+                <h4 style="color: #fff; margin-bottom: 1rem;">Quick Links</h4>
+                <ul style="list-style: none; text-align: left;">
+                    <li style="margin-bottom: 0.5rem;"><a href="/ruler"
+                            style="color: var(--text-muted); text-decoration: none;">Rules</a></li>
+                    <li style="margin-bottom: 0.5rem;"><a href="#"
+                            style="color: var(--text-muted); text-decoration: none;">Support</a></li>
+                    <li style="margin-bottom: 0.5rem;"><a href="#"
+                            style="color: var(--text-muted); text-decoration: none;">Discord</a></li>
+                </ul>
+            </div>
+        </div>
+        <p>&copy; 2026 chuvashi Project. All rights reserved.</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="/static/assets/js/app.js"></script>
+    <!-- Chat Widget -->
+    <div id="chat-widget"
+        style="position:fixed; bottom:20px; right:20px; width:350px; height:450px; background:var(--bg-dark); border:1px solid var(--glass-border); border-radius:12px; display:none; flex-direction:column; z-index:9000; box-shadow:0 10px 40px rgba(0,0,0,0.5);">
+        <div
+            style="padding:15px; border-bottom:1px solid var(--glass-border); display:flex; justify-content:space-between; align-items:center; background:rgba(255,255,255,0.03);">
+            <h4 style="margin:0;"><i class="fas fa-comments" style="color:var(--primary)"></i> Live Chat</h4>
+            <button onclick="toggleChat()"
+                style="background:none; border:none; color:var(--text-muted); cursor:pointer"><i
+                    class="fas fa-minus"></i></button>
+        </div>
+        <div id="chat-messages"
+            style="flex:1; overflow-y:auto; padding:15px; display:flex; flex-direction:column; gap:10px;">
+            <!-- Msgs -->
+        </div>
+        <div style="padding:15px; border-top:1px solid var(--glass-border); display:flex; gap:10px;">
+            <input type="text" id="chat-input" placeholder="Say something..."
+                style="flex:1; background:rgba(0,0,0,0.2); border:1px solid var(--glass-border); color:#fff; padding:8px; border-radius:6px;"
+                onkeypress="if(event.key==='Enter') sendChatMessage()">
+            <button onclick="sendChatMessage()" class="btn btn-primary" style="padding:8px 12px;"><i
+                    class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+    <button id="chat-toggle-btn" onclick="toggleChat()"
+        style="position:fixed; bottom:20px; right:20px; width:60px; height:60px; border-radius:50%; background:var(--primary); color:#000; font-size:1.5rem; border:none; cursor:pointer; z-index:8999; box-shadow:0 0 20px var(--primary-dim);"><i
+            class="fas fa-comment-dots"></i></button>
+
+</body>
+
+</html>

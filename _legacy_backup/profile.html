@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil - Fgaming</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/main.css">
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="container header-inner">
+            <a href="index.html" class="logo">Fgaming<span style="color:var(--accent)">.</span></a>
+
+            <nav>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html" class="nav-link">Bosh Sahifa</a></li>
+                    <li><a href="servers.html" class="nav-link">Serverlar</a></li>
+                    <li><a href="shop.html" class="nav-link">Do'kon</a></li>
+                    <li><a href="rules.html" class="nav-link">Qoidalar</a></li>
+                    <li><a href="profile.html" class="nav-link active profile-link auth-button"></a></li>
+                </ul>
+            </nav>
+
+            <div class="menu-toggle" id="menuToggle">☰</div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <div class="container profile-container">
+            <!-- Profile Header -->
+            <div class="profile-header hidden">
+                <div class="profile-avatar-large">
+                    <img id="profileAvatar" src="" alt="Profile Avatar">
+                    <div class="online-status"></div>
+                </div>
+                <div class="profile-info">
+                    <h1 id="profileUsername">Yuklanmoqda...</h1>
+                    <p class="profile-steam-id" id="profileSteamId"></p>
+                    <a href="#" id="profileSteamLink" target="_blank" class="btn btn-outline">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 8px;">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                        Steam Profilini Ko'rish
+                    </a>
+                </div>
+            </div>
+
+            <!-- Statistics Section -->
+            <div class="stats-section">
+                <h2 class="section-title">CS2 Statistikasi</h2>
+                
+                <div class="stats-grid">
+                    <!-- KD Ratio -->
+                    <div class="stat-card">
+                        <div class="stat-icon">🎯</div>
+                        <div class="stat-content">
+                            <h3>KD Ratio</h3>
+                            <p class="stat-value" id="statKD">0.00</p>
+                            <p class="stat-label">Kills / Deaths</p>
+                        </div>
+                    </div>
+
+                    <!-- Total Kills -->
+                    <div class="stat-card">
+                        <div class="stat-icon">⚔️</div>
+                        <div class="stat-content">
+                            <h3>Jami O'ldirishlar</h3>
+                            <p class="stat-value" id="statKills">0</p>
+                            <p class="stat-label">Kills</p>
+                        </div>
+                    </div>
+
+                    <!-- Total Deaths -->
+                    <div class="stat-card">
+                        <div class="stat-icon">💀</div>
+                        <div class="stat-content">
+                            <h3>Jami O'limlar</h3>
+                            <p class="stat-value" id="statDeaths">0</p>
+                            <p class="stat-label">Deaths</p>
+                        </div>
+                    </div>
+
+                    <!-- Assists -->
+                    <div class="stat-card">
+                        <div class="stat-icon">🤝</div>
+                        <div class="stat-content">
+                            <h3>Yordamlar</h3>
+                            <p class="stat-value" id="statAssists">0</p>
+                            <p class="stat-label">Assists</p>
+                        </div>
+                    </div>
+
+                    <!-- Headshots -->
+                    <div class="stat-card">
+                        <div class="stat-icon">🎯</div>
+                        <div class="stat-content">
+                            <h3>Headshots</h3>
+                            <p class="stat-value" id="statHeadshots">0</p>
+                            <p class="stat-label">Headshot Kills</p>
+                        </div>
+                    </div>
+
+                    <!-- Headshot Percentage -->
+                    <div class="stat-card">
+                        <div class="stat-icon">📊</div>
+                        <div class="stat-content">
+                            <h3>Headshot %</h3>
+                            <p class="stat-value" id="statHSPercent">0.0%</p>
+                            <p class="stat-label">Headshot Percentage</p>
+                        </div>
+                    </div>
+
+                    <!-- Matches Played -->
+                    <div class="stat-card">
+                        <div class="stat-icon">🎮</div>
+                        <div class="stat-content">
+                            <h3>O'ynalgan O'yinlar</h3>
+                            <p class="stat-value" id="statMatches">0</p>
+                            <p class="stat-label">Matches</p>
+                        </div>
+                    </div>
+
+                    <!-- Win Rate -->
+                    <div class="stat-card">
+                        <div class="stat-icon">🏆</div>
+                        <div class="stat-content">
+                            <h3>G'alaba Foizi</h3>
+                            <p class="stat-value" id="statWinRate">0.0%</p>
+                            <p class="stat-label">Win Rate</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Not Logged In Message -->
+            <div class="not-logged-in" id="notLoggedIn" style="display: none;">
+                <div class="empty-state">
+                    <div class="empty-icon">🔐</div>
+                    <h2>Kirish kerak</h2>
+                    <p>Statistikani ko'rish uchun Steam orqali tizimga kiring.</p>
+                    <button class="btn btn-primary" onclick="openSteamAuth()">Steam orqali kirish</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Steam Auth Modal -->
+    <div class="steam-auth-modal" id="steamAuthModal">
+        <div class="steam-auth-content">
+            <button class="close-modal" onclick="closeSteamAuth()">×</button>
+            <h2>Steam orqali kirish</h2>
+            <p>Foydalanish uchun Steam akkauntingiz orqali tizimga kiring yoki ro'yxatdan o'ting.</p>
+            <div class="steam-auth-buttons">
+                <button class="btn-steam-login" onclick="loginWithSteam(); closeSteamAuth();">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                    </svg>
+                    Kirish
+                </button>
+                <button class="btn-steam-register" onclick="registerWithSteam(); closeSteamAuth();">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                    </svg>
+                    Ro'yxatdan o'tish
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-inner">
+            <div class="footer-logo">
+                <h3>Fgaming</h3>
+                <p style="color:var(--text-muted); font-size: 0.9rem;">&copy; 2024 Barcha huquqlar himoyalangan.</p>
+            </div>
+            <div class="socials" style="display:flex; gap:15px;">
+                <a href="https://discord.gg" target="_blank" style="color:var(--text-muted); transition: color 0.3s;"
+                    onmouseover="this.style.color='#7289da'"
+                    onmouseout="this.style.color='var(--text-muted)'">Discord</a>
+                <a href="https://t.me" target="_blank" style="color:var(--text-muted); transition: color 0.3s;"
+                    onmouseover="this.style.color='#0088cc'"
+                    onmouseout="this.style.color='var(--text-muted)'">Telegram</a>
+                <a href="https://youtube.com" target="_blank" style="color:var(--text-muted); transition: color 0.3s;"
+                    onmouseover="this.style.color='#ff0000'"
+                    onmouseout="this.style.color='var(--text-muted)'">YouTube</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="assets/js/app.js"></script>
+    <script src="assets/js/auth.js"></script>
+    <script src="assets/js/steam-auth.js"></script>
+    <script src="assets/js/profile.js"></script>
+</body>
+
+</html>
+

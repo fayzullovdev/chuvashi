@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bans | chuvashi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/static/assets/css/style.css">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <a href="/" class="logo">chuvashi</a>
+        <div class="nav-links">
+            <a href="/" class="nav-link" data-i18n="nav.home">Home</a>
+            <a href="/shop" class="nav-link" data-i18n="nav.store">Store</a>
+            <a href="/forum" class="nav-link" data-i18n="nav.forum">Forum</a>
+            <a href="/servers" class="nav-link" data-i18n="nav.servers">Servers</a>
+            <a href="/ruler" class="nav-link" data-i18n="nav.ruler">Ruler</a>
+            <a href="/bans" class="nav-link active" data-i18n="nav.bans">Bans</a>
+        </div>
+        <div class="nav-actions"></div>
+    </nav>
+
+    <div class="section" style="padding-top: 120px;">
+        <h2 class="section-title">Public <span>Ban List</span></h2>
+
+        <div class="container" style="max-width: 900px; margin: 0 auto;">
+            <div id="bans-list-container" class="card" style="padding: 0;">
+                <table style="width: 100%; border-collapse: collapse;">
+                    <thead style="background: rgba(255,255,255,0.05);">
+                        <tr>
+                            <th style="padding: 1.2rem; text-align: left;">Player</th>
+                            <th style="padding: 1.2rem; text-align: center;">Reason</th>
+                            <th style="padding: 1.2rem; text-align: center;">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bans-tbody">
+                        <!-- Injected by app.js -->
+                    </tbody>
+                </table>
+            </div>
+            <p id="no-bans" style="text-align: center; color: var(--text-muted); display: none; margin-top: 2rem;">No
+                players are currently banned. Clear skies!</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 chuvashi Project. All rights reserved.</p>
+    </footer>
+
+    <script src="/static/assets/js/app.js"></script>
+</body>
+
+</html>

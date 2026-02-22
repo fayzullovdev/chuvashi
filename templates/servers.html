@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Servers | chuvashi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/static/assets/css/style.css">
+    <style>
+        .server-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .server-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .server-map-bg {
+            height: 150px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            padding: 1.5rem;
+        }
+
+        .server-map-bg::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(0deg, var(--bg-dark), transparent);
+        }
+
+        .server-status {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            z-index: 2;
+        }
+
+        .status-online { background: rgba(0, 242, 234, 0.2); color: var(--primary); border: 1px solid var(--primary); }
+        .status-offline { background: rgba(255, 0, 80, 0.2); color: var(--secondary); border: 1px solid var(--secondary); }
+
+        .server-info {
+            padding: 1.5rem;
+        }
+
+        .connect-btn {
+            width: 100%;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .ip-box {
+            background: rgba(0,0,0,0.3);
+            padding: 8px 12px;
+            border-radius: 8px;
+            margin-top: 10px;
+            font-family: monospace;
+            font-size: 0.9rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid var(--glass-border);
+        }
+        
+        .copy-ip {
+            cursor: pointer;
+            color: var(--primary);
+            transition: opacity 0.2s;
+        }
+        .copy-ip:hover { opacity: 0.7; }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <a href="/" class="logo">chuvashi</a>
+        <div class="nav-links">
+            <a href="/" class="nav-link" data-i18n="nav.home">Home</a>
+            <a href="/shop" class="nav-link" data-i18n="nav.store">Store</a>
+            <a href="/forum" class="nav-link" data-i18n="nav.forum">Forum</a>
+            <a href="/servers" class="nav-link active" data-i18n="nav.servers">Servers</a>
+            <a href="/ruler" class="nav-link" data-i18n="nav.ruler">Ruler</a>
+            <a href="/bans" class="nav-link" data-i18n="nav.bans">Bans</a>
+        </div>
+        <div class="nav-actions"></div>
+    </nav>
+
+    <div class="section" style="padding-top: 120px;">
+        <div class="container">
+            <h2 class="section-title">ACTIVE <span>SERVERS</span></h2>
+            <p style="text-align: center; color: var(--text-muted); margin-bottom: 3rem;">Join our community on high-performance gaming servers.</p>
+
+            <div id="servers-grid" class="card-grid">
+                <!-- Data will be injected by app.js -->
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 chuvashi Project. All rights reserved.</p>
+    </footer>
+
+    <script src="/static/assets/js/app.js"></script>
+    <script>
+        // Copy IP function
+        function copyIP(ip) {
+            navigator.clipboard.writeText(ip);
+            showNotification('IP copied to clipboard!', 'success');
+        }
+    </script>
+</body>
+
+</html>

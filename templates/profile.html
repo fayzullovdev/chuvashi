@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile | chuvashi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/static/assets/css/style.css">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <a href="/" class="logo">chuvashi</a>
+        <div class="nav-links">
+            <a href="/" class="nav-link" data-i18n="nav.home">Home</a>
+            <a href="/shop" class="nav-link" data-i18n="nav.store">Store</a>
+            <a href="/forum" class="nav-link" data-i18n="nav.forum">Forum</a>
+            <a href="/servers" class="nav-link" data-i18n="nav.servers">Servers</a>
+            <a href="/ruler" class="nav-link" data-i18n="nav.ruler">Ruler</a>
+            <a href="/bans" class="nav-link" data-i18n="nav.bans">Bans</a>
+        </div>
+        <div class="nav-actions"></div>
+    </nav>
+
+    <div class="section" id="profile-view" style="padding-top: 120px;">
+        <div
+            style="max-width: 800px; margin: 0 auto; background: var(--bg-card); padding: 2rem; border-radius: 16px; border: 1px solid var(--glass-border);">
+
+            <div style="display: flex; gap: 2rem; align-items: center; margin-bottom: 2rem;">
+                <div style="position:relative; cursor:pointer;"
+                    onclick="document.getElementById('avatar-upload').click()">
+                    <img id="profile-avatar" src="" alt="Avatar"
+                        style="width: 100px; height: 100px; border-radius: 50%; border: 3px solid var(--primary); object-fit:cover;">
+                    <div
+                        style="position:absolute; bottom:0; right:0; background:var(--bg-card); border-radius:50%; padding:5px; border:1px solid var(--primary);">
+                        <i class="fas fa-camera" style="color:var(--text-muted); font-size:0.8rem;"></i>
+                    </div>
+                </div>
+                <input type="file" id="avatar-upload" style="display:none" onchange="uploadAvatar()">
+
+                <div>
+                    <h2 id="profile-name" style="font-size: 2rem; margin-bottom: 0.5rem;">Username</h2>
+                    <p style="color: var(--text-muted);"><i class="fab fa-steam"></i> <span
+                            id="profile-steamid">STEAM_0:0:000000</span></p>
+                </div>
+                <div style="margin-left: auto;">
+                    <button onclick="logout()" class="btn btn-glass"
+                        style="border-color: #ff0050; color: #ff0050;">Logout</button>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 2rem;">
+                <div
+                    style="background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 12px; text-align: center;">
+                    <h3 style="color: var(--primary);">dcoin</h3>
+                    <p id="profile-credits" style="font-size: 1.5rem; font-weight: 700;">0</p>
+                </div>
+                <div
+                    style="background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 12px; text-align: center;">
+                    <h3 style="color: var(--secondary);">Rank</h3>
+                    <p id="profile-rank" style="font-size: 1.5rem; font-weight: 700;">Member</p>
+                </div>
+                <div
+                    style="background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 12px; text-align: center;">
+                    <h3 style="color: #ffd700;">K/D Ratio</h3>
+                    <p style="font-size: 1.5rem; font-weight: 700;">1.25</p>
+                </div>
+            </div>
+
+            <h3 style="border-bottom: 1px solid var(--glass-border); padding-bottom: 0.5rem; margin-bottom: 1rem;">
+                Recent Activity</h3>
+            <p style="color: var(--text-muted); text-align: center; padding: 2rem;">No recent transactions found.</p>
+
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 chuvashi Project. All rights reserved.</p>
+    </footer>
+
+    <script src="/static/assets/js/app.js"></script>
+</body>
+
+</html>
