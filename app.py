@@ -760,4 +760,5 @@ if __name__ == '__main__':
         if not User.query.filter_by(username='admin').first():
             db.session.add(User(username='admin', password='123', role='admin', rank='Admin', dcoins=10000))
             db.session.commit()
-    app.run(debug=True, port=8000)
+            
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 10000)))
