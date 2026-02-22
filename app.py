@@ -52,7 +52,7 @@ def send_verification_email(email, username):
     <body style="background-color: #050508; color: #ffffff; font-family: 'Outfit', sans-serif; padding: 40px; text-align: center;">
         <div style="max-width: 600px; margin: 0 auto; background: #0a0a12; border: 1px solid #00f2ea; border-radius: 15px; padding: 30px;">
             <h1 style="color: #00f2ea; letter-spacing: 2px;">DEKO <span style="color: #ff0050;">GAMING</span></h1>
-            <p style="font-size: 18px; color: #ddd;">Assalomu alaykum, <strong>{username}</strong>!</p>
+            <p style="font-size: 18px; color: #ddd;">Hello, <strong>{username}</strong>!</p>
             <p style="color: #bbb;">Welcome to the Chuvashi community. Click the button below to activate your account:</p>
             <div style="margin: 30px 0;">
                 <a href="{verify_url}" style="background: #00f2ea; color: #000; padding: 15px 30px; text-decoration: none; border-radius: 8px; font-weight: bold; text-transform: uppercase;">Verify Account</a>
@@ -254,7 +254,7 @@ def auth_register():
     password = data.get('password')
     
     if not username or not email or not password:
-        return jsonify({"error": "Barcha maydonlarni to'ldiring"}), 400
+        return jsonify({"error": "Please fill in all fields"}), 400
     
     if User.query.filter_by(username=username).first():
         return jsonify({"error": "Username already exists"}), 400
@@ -324,10 +324,10 @@ def shop_purchase():
             amount = int(item.name.split(' ')[0])
             current_user.dcoins += amount
             db.session.commit()
-            return jsonify({"success": True, "new_balance": current_user.dcoins, "msg": f"{amount} dcoin qo'shildi!"})
+            return jsonify({"success": True, "new_balance": current_user.dcoins, "msg": f"{amount} dcoin added!"})
         except: pass
 
-    if current_user.dcoins < item.price: return jsonify({"error": "dcoin balansi yetarli emas"}), 400
+    if current_user.dcoins < item.price: return jsonify({"error": "Insufficient dcoin balance"}), 400
         
     current_user.dcoins -= item.price
     if item.category == 'Imtiyoz':
@@ -385,7 +385,7 @@ def api_chat_send():
     data = request.json
     content = data.get('content', '').strip()
     if not content: return jsonify({"error": "Empty message"}), 400
-    if len(content) > 500: return jsonify({"error": "Xabar juda uzun"}), 400
+    if len(content) > 500: return jsonify({"error": "Message is too long"}), 400
     
     msg = ChatMessage(user_id=current_user.id, content=content)
     db.session.add(msg)
@@ -395,9 +395,9 @@ def api_chat_send():
 @app.route('/api/user/upload-avatar', methods=['POST'])
 @login_required
 def api_upload_avatar():
-    if 'file' not in request.files: return jsonify({"error": "Fayl tanlanmadi"}), 400
+    if 'file' not in request.files: return jsonify({"error": "No file selected"}), 400
     file = request.files['file']
-    if file.filename == '': return jsonify({"error": "Fayl tanlanmadi"}), 400
+    if file.filename == '': return jsonify({"error": "No file selected"}), 400
     
     if file:
         filename = f"user_{current_user.id}_{int(time.time())}.png" # Force PNG extension for simplicity or preserve
@@ -408,7 +408,7 @@ def api_upload_avatar():
         current_user.avatar = url
         db.session.commit()
         return jsonify({"success": True, "avatar": url})
-    return jsonify({"error": "Xatolik"}), 500
+    return jsonify({"error": "Error"}), 500
 
 
 
@@ -445,11 +445,28 @@ def api_init():
         db.session.add(ForumThread(title='Welcome to Chuvashi', author_name='Admin', category='General', content='Forum is live. You can leave your questions here.'))
         db.session.commit()
 
-    if not GameServer.query.first():
-        db.session.add(GameServer(name='AIM #1 USP', ip='94.158.55.106', port=27219, map='de_dust2', players=0, max_players=28))
-        db.session.add(GameServer(name='Chuvashi #1 [PUBLIC]', ip='127.0.0.1', port=27015, map='de_dust2', players=12, max_players=32))
-        db.session.add(GameServer(name='Chuvashi #2 [ONLY DUST2]', ip='127.0.0.1', port=27016, map='de_dust2', players=24, max_players=32))
-        db.session.add(GameServer(name='Chuvashi #3 [AWP LEGO]', ip='127.0.0.1', port=27017, map='awp_lego_2', players=8, max_players=16))
+    static_servers = [
+        {"name": "Chuvashi [PUBLIC]", "ip": "93.191.11.211", "port": 27021, "map": "de_dust2_2x2"},
+        {"name": "Chuvashi [ZOMBIE]", "ip": "46.174.52.14", "port": 27255, "map": "NoNe"}
+    ]
+
+    existing_servers = GameServer.query.all()
+    legacy_seed_ips = {"127.0.0.1", "94.158.55.106"}
+    should_migrate_legacy = bool(existing_servers) and all(s.ip in legacy_seed_ips for s in existing_servers)
+
+    if not existing_servers or should_migrate_legacy:
+        if should_migrate_legacy:
+            GameServer.query.delete()
+            db.session.commit()
+        for s in static_servers:
+            db.session.add(GameServer(
+                name=s["name"],
+                ip=s["ip"],
+                port=s["port"],
+                map=s["map"],
+                players=0,
+                max_players=32
+            ))
         db.session.commit()
         server_cache["data"] = None
         server_cache["last_updated"] = 0
@@ -477,9 +494,9 @@ def api_forum_create():
     data = request.json
     title = data.get('title')
     content = data.get('content')
-    category = data.get('category', 'Umumiy')
+    category = data.get('category', 'General')
     
-    if not title or not content: return jsonify({"error": "Sarlavha va matn talab qilinadi"}), 400
+    if not title or not content: return jsonify({"error": "Title and content are required"}), 400
     
     thread = ForumThread(title=title, author_name=current_user.username, category=category, content=content)
     db.session.add(thread)
@@ -623,7 +640,7 @@ def admin_toggle_ban():
     if current_user.role != 'admin': return jsonify({"error": "Unauthorized"}), 403
     user = User.query.filter_by(username=request.json.get('username')).first()
     if user:
-        if user.username == current_user.username: return jsonify({"error": "O'zini ban qilish mumkin emas"}), 400
+        if user.username == current_user.username: return jsonify({"error": "You cannot ban yourself"}), 400
         user.banned = not user.banned
         db.session.commit()
         return jsonify({"success": True, "new_status": user.banned})
