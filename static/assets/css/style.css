@@ -122,6 +122,47 @@ body {
     align-items: center;
 }
 
+.nav-menu {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex: 1;
+    gap: 2rem;
+    margin-left: 2.25rem;
+}
+
+.nav-burger {
+    display: none;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    border: 1px solid var(--glass-border);
+    background: rgba(255, 255, 255, 0.03);
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 5px;
+    padding: 10px;
+}
+
+.nav-burger:hover {
+    border-color: var(--primary);
+    box-shadow: 0 0 18px rgba(0, 242, 234, 0.12);
+}
+
+.nav-burger span {
+    display: block;
+    width: 18px;
+    height: 2px;
+    border-radius: 2px;
+    background: rgba(255, 255, 255, 0.85);
+}
+
+.nav-backdrop {
+    display: none;
+}
+
 .user-menu {
     display: flex;
     align-items: center;
@@ -473,4 +514,367 @@ footer {
     flex-wrap: wrap;
     gap: 3rem;
     margin-bottom: 3rem;
+}
+
+/* Admin toolbar */
+.admin-toolbar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.admin-toolbar .btn {
+    padding: 0.55rem 1.1rem;
+    font-size: 0.9rem;
+}
+
+.admin-table-wrap {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.admin-table-wrap table {
+    min-width: 720px;
+}
+
+/* Responsive - Tablets & Phones */
+@media (max-width: 1024px) {
+    .navbar {
+        padding: 1.2rem 3%;
+    }
+
+    .hero {
+        padding: 120px 3% 4rem;
+    }
+
+    .section {
+        padding: 4.5rem 3%;
+    }
+}
+
+/* Responsive - Phones */
+@media (max-width: 768px) {
+    body {
+        font-size: 14px;
+    }
+
+    .navbar {
+        padding: 1rem 1.25rem;
+        gap: 0.75rem;
+        flex-wrap: nowrap;
+    }
+
+    .logo {
+        font-size: 1.4rem;
+    }
+
+    .nav-burger {
+        display: inline-flex;
+    }
+
+    .nav-menu {
+        position: absolute;
+        top: calc(100% + 1px);
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: flex-start;
+        gap: 0.75rem;
+        margin-left: 0;
+        padding: 0.9rem 1rem 1rem;
+        background: rgba(10, 10, 18, 0.92);
+        border-bottom: 1px solid var(--glass-border);
+        backdrop-filter: blur(14px);
+        transform: translateY(-8px);
+        opacity: 0;
+        pointer-events: none;
+        max-height: calc(100vh - 76px);
+        overflow: auto;
+        z-index: 1000;
+    }
+
+    .nav-menu.open {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .nav-backdrop {
+        position: fixed;
+        inset: 0;
+        top: 0;
+        background: rgba(0, 0, 0, 0.45);
+        backdrop-filter: blur(2px);
+        z-index: 900;
+    }
+
+    .nav-backdrop.open {
+        display: block;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+
+    .nav-link {
+        font-size: 0.95rem;
+        padding: 0.85rem 0.75rem;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+        background: rgba(255, 255, 255, 0.06);
+        border-color: rgba(0, 242, 234, 0.25);
+    }
+
+    .nav-link::after {
+        display: none;
+    }
+
+    .nav-actions {
+        width: 100%;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+    }
+
+    .hero {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 110px 1.25rem 3.25rem;
+    }
+
+    .hero-content {
+        max-width: 100%;
+    }
+
+    .hero h1 {
+        font-size: 2.4rem;
+    }
+
+    .hero p {
+        font-size: 1rem;
+        margin-bottom: 1.75rem;
+    }
+
+    .hero-decoration {
+        display: none;
+    }
+
+    .section {
+        padding: 3.5rem 1.25rem;
+    }
+
+    .section-title {
+        font-size: 2rem;
+        margin-bottom: 2.5rem;
+    }
+
+    .card-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .card-img {
+        height: 160px;
+    }
+
+    .card {
+        border-radius: 16px;
+    }
+
+    .card-body {
+        padding: 1.5rem;
+    }
+
+    .user-avatar-small {
+        width: 28px;
+        height: 28px;
+    }
+
+    .admin-toolbar {
+        gap: 8px;
+    }
+
+    .admin-toolbar .btn {
+        flex: 1 1 calc(50% - 8px);
+        text-align: center;
+        font-size: 0.85rem;
+        padding: 0.5rem 0.75rem;
+    }
+
+    #admin-content {
+        font-size: 0.9rem;
+    }
+
+    #admin-content .card {
+        padding: 1.25rem !important;
+    }
+
+    #admin-content table th,
+    #admin-content table td {
+        padding: 0.85rem 0.5rem !important;
+        font-size: 0.8rem;
+        white-space: nowrap;
+    }
+
+    footer {
+        padding: 3rem 1.25rem 1.5rem;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    /* Chat widget on small screens */
+    #chat-widget {
+        width: calc(100% - 32px) !important;
+        max-width: 480px;
+        right: 16px !important;
+        left: 16px !important;
+        bottom: 90px !important;
+        height: 65vh !important;
+    }
+
+    #chat-toggle-btn {
+        width: 56px;
+        height: 56px;
+        bottom: 16px !important;
+        right: 16px !important;
+    }
+
+    /* Servers page inline style override */
+    .server-map-bg {
+        height: 130px !important;
+    }
+
+    /* Profile avatar inline style override */
+    #profile-avatar {
+        width: 84px !important;
+        height: 84px !important;
+    }
+
+    /* Coin icons (some are inline-styled) */
+    img[src*="coin.png"] {
+        width: 12px !important;
+        height: auto !important;
+    }
+}
+
+/* Extra small phones */
+@media (max-width: 480px) {
+    .navbar {
+        padding: 0.8rem 1rem;
+    }
+
+    .nav-links {
+        gap: 0.25rem;
+    }
+
+    .hero h1 {
+        font-size: 2rem;
+    }
+
+    .hero p {
+        font-size: 0.95rem;
+    }
+
+    .btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .card-img {
+        height: 140px;
+    }
+
+    .user-avatar-small {
+        width: 24px;
+        height: 24px;
+    }
+}
+
+/* Very small phones (375px and below) */
+@media (max-width: 375px) {
+    .navbar {
+        padding: 0.7rem 0.8rem;
+    }
+
+    .logo {
+        font-size: 1.2rem;
+    }
+
+    .nav-burger {
+        width: 36px;
+        height: 36px;
+        padding: 7px;
+    }
+
+    .nav-menu {
+        padding: 0.75rem 0.8rem 0.85rem;
+    }
+
+    .nav-link {
+        font-size: 0.85rem;
+        padding: 0.7rem 0.6rem;
+        border-radius: 10px;
+    }
+
+    .hero {
+        padding: 95px 0.9rem 2.4rem;
+    }
+
+    .hero h1 {
+        font-size: 1.7rem;
+    }
+
+    .hero p {
+        font-size: 0.9rem;
+        margin-bottom: 1.4rem;
+    }
+
+    .section {
+        padding: 3rem 0.9rem;
+    }
+
+    .section-title {
+        font-size: 1.7rem;
+        margin-bottom: 2rem;
+    }
+
+    .card-img {
+        height: 120px;
+    }
+
+    .card-body {
+        padding: 1.2rem;
+    }
+
+    .admin-toolbar .btn {
+        flex: 1 1 100%;
+        font-size: 0.8rem;
+        padding: 0.5rem 0.6rem;
+    }
+
+    #admin-content table th,
+    #admin-content table td {
+        font-size: 0.75rem;
+        padding: 0.75rem 0.4rem !important;
+    }
+
+    footer {
+        padding: 2.5rem 0.9rem 1.2rem;
+    }
+
+    #chat-widget {
+        height: 60vh !important;
+    }
 }

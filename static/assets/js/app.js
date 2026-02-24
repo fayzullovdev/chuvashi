@@ -1,4 +1,4 @@
-﻿// F-Gaming Full-Stack Application Logic (Enhanced)
+// F-Gaming Full-Stack Application Logic (Enhanced)
 
 const API_BASE = window.location.origin;
 
@@ -77,6 +77,82 @@ function applyTranslations(root = document) {
     });
 }
 
+function initMobileNav() {
+    const navbar = document.querySelector('.navbar');
+    if (!navbar) return;
+
+    // Already initialized
+    if (navbar.querySelector('.nav-burger') && navbar.querySelector('.nav-menu')) return;
+
+    const navLinks = navbar.querySelector('.nav-links');
+    const navActions = navbar.querySelector('.nav-actions');
+    if (!navLinks || !navActions) return;
+
+    // Create menu container and place it where nav-links currently are.
+    const menu = document.createElement('div');
+    menu.className = 'nav-menu';
+    menu.id = navbar.querySelector('#nav-menu') ? `nav-menu-${Math.random().toString(16).slice(2)}` : 'nav-menu';
+    navbar.insertBefore(menu, navLinks);
+
+    menu.appendChild(navLinks);
+    menu.appendChild(navActions);
+
+    // Burger button (insert after logo for consistent layout)
+    const burger = document.createElement('button');
+    burger.type = 'button';
+    burger.className = 'nav-burger';
+    burger.setAttribute('aria-label', 'Open menu');
+    burger.setAttribute('aria-expanded', 'false');
+    burger.setAttribute('aria-controls', menu.id);
+    burger.innerHTML = '<span></span><span></span><span></span>';
+
+    const logo = navbar.querySelector('.logo');
+    if (logo && logo.nextSibling) navbar.insertBefore(burger, logo.nextSibling);
+    else navbar.prepend(burger);
+
+    // Backdrop for closing on outside click (one per page)
+    let backdrop = document.querySelector('.nav-backdrop');
+    if (!backdrop) {
+        backdrop = document.createElement('div');
+        backdrop.className = 'nav-backdrop';
+        document.body.appendChild(backdrop);
+    }
+
+    const closeMenu = () => {
+        menu.classList.remove('open');
+        backdrop.classList.remove('open');
+        burger.setAttribute('aria-expanded', 'false');
+        burger.setAttribute('aria-label', 'Open menu');
+    };
+
+    const openMenu = () => {
+        menu.classList.add('open');
+        backdrop.classList.add('open');
+        burger.setAttribute('aria-expanded', 'true');
+        burger.setAttribute('aria-label', 'Close menu');
+    };
+
+    burger.addEventListener('click', () => {
+        if (menu.classList.contains('open')) closeMenu();
+        else openMenu();
+    });
+
+    backdrop.addEventListener('click', closeMenu);
+
+    menu.addEventListener('click', (e) => {
+        const a = e.target.closest && e.target.closest('a');
+        if (a) closeMenu();
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeMenu();
+    });
+
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 768) closeMenu();
+    });
+}
+
 function getLangSwitcherHtml() {
     const enActive = currentLang === 'en' ? 'background:rgba(0,242,234,0.18);border-color:var(--primary);color:#fff;' : '';
     const ruActive = currentLang === 'ru' ? 'background:rgba(0,242,234,0.18);border-color:var(--primary);color:#fff;' : '';
@@ -118,6 +194,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Ensure initial data exists
     await fetch(`${API_BASE}/api/init`).catch(() => { });
 
+    initMobileNav();
     updateUI();
 
     const path = window.location.pathname;
@@ -455,32 +532,34 @@ async function renderAdmin() {
     container.innerHTML = `
         <h2 style="margin-bottom:3rem">SYSTEM <span>ADMINISTRATION</span></h2>
         <div class="card" style="padding:0; border-color:var(--primary-dim);">
-            <table style="width:100%; border-collapse:collapse">
-                <thead><tr style="background:rgba(255,255,255,0.05)"><th style="padding:1.5rem; text-align:left">SUBJECT</th><th style="padding:1.5rem">ROLE</th><th style="padding:1.5rem">DCOIN</th><th style="padding:1.5rem">ACTIONS</th></tr></thead>
-                <tbody>
-                    ${usersList.map(u => `
-                        <tr style="border-top:1px solid var(--glass-border); ${u.pending_privilege ? 'background:rgba(255,215,0,0.1); border-left:4px solid #ffd700;' : ''}">
-                            <td style="padding:1.5rem">
-                                <div style="display:flex; align-items:center; gap:15px">
-                                    <img src="${u.avatar}" style="width:40px; height:40px; border-radius:50%">
-                                    <div>
-                                        <p style="font-weight:700">${u.username}</p>
-                                        ${u.pending_privilege ? `<p style="font-size:0.7rem; color:#ffd700">Bought: ${u.last_purchase || 'Unknown'}</p>` : ''}
+            <div class="admin-table-wrap">
+                <table style="width:100%; border-collapse:collapse">
+                    <thead><tr style="background:rgba(255,255,255,0.05)"><th style="padding:1.5rem; text-align:left">SUBJECT</th><th style="padding:1.5rem">ROLE</th><th style="padding:1.5rem">DCOIN</th><th style="padding:1.5rem">ACTIONS</th></tr></thead>
+                    <tbody>
+                        ${usersList.map(u => `
+                            <tr style="border-top:1px solid var(--glass-border); ${u.pending_privilege ? 'background:rgba(255,215,0,0.1); border-left:4px solid #ffd700;' : ''}">
+                                <td style="padding:1.5rem">
+                                    <div style="display:flex; align-items:center; gap:15px">
+                                        <img src="${u.avatar}" style="width:40px; height:40px; border-radius:50%">
+                                        <div>
+                                            <p style="font-weight:700">${u.username}</p>
+                                            ${u.pending_privilege ? `<p style="font-size:0.7rem; color:#ffd700">Bought: ${u.last_purchase || 'Unknown'}</p>` : ''}
+                                        </div>
                                     </div>
-                                </div>
-                            </td>
-                            <td style="padding:1.5rem; text-align:center"><span class="role-badge ${u.role}">${u.role.toUpperCase()}</span></td>
-                            <td style="padding:1.5rem; text-align:center; font-weight:800; color:#ffd700">${u.dcoins} <img src="/static/assets/img/coin.png" style="width:13px; vertical-align:middle;"></td>
-                            <td style="padding:1.5rem; text-align:center">
-                                <button onclick="adminAddDCoin(\'${u.username}\')" class="btn-glass" style="border-color:#ffd700; color:#ffd700; padding:6px 12px; margin-right:5px">+100</button>
-                                <button onclick="adminToggleBan(\'${u.username}\', ${u.banned})" class="btn-glass" style="border-color:${u.banned ? '#00f2ea' : 'var(--secondary)'}; color:${u.banned ? '#00f2ea' : 'var(--secondary)'}; padding:6px 12px">${u.banned ? 'RESTORE' : 'BAN'}</button>
-                                ${u.role === 'vip' ? `<button onclick="adminRemoveVIP(\'${u.username}\')" class="btn-glass" style="border-color:#ff4444; color:#ff4444; padding:6px 12px; margin-left:5px">DEMOTE</button>` : ''}
-                                ${u.pending_privilege ? `<button onclick="adminClearGlow(\'${u.username}\')" class="btn-glass" style="border-color:#ffd700; color:#ffd700; padding:6px 12px; margin-left:5px">ACK</button>` : ''}
-                            </td>
-                        </tr>
-                    `).join('')}
-                </tbody>
-            </table>
+                                </td>
+                                <td style="padding:1.5rem; text-align:center"><span class="role-badge ${u.role}">${u.role.toUpperCase()}</span></td>
+                                <td style="padding:1.5rem; text-align:center; font-weight:800; color:#ffd700">${u.dcoins} <img src="/static/assets/img/coin.png" style="width:13px; vertical-align:middle;"></td>
+                                <td style="padding:1.5rem; text-align:center">
+                                    <button onclick="adminAddDCoin(\'${u.username}\')" class="btn-glass" style="border-color:#ffd700; color:#ffd700; padding:6px 12px; margin-right:5px">+100</button>
+                                    <button onclick="adminToggleBan(\'${u.username}\', ${u.banned})" class="btn-glass" style="border-color:${u.banned ? '#00f2ea' : 'var(--secondary)'}; color:${u.banned ? '#00f2ea' : 'var(--secondary)'}; padding:6px 12px">${u.banned ? 'RESTORE' : 'BAN'}</button>
+                                    ${u.role === 'vip' ? `<button onclick="adminRemoveVIP(\'${u.username}\')" class="btn-glass" style="border-color:#ff4444; color:#ff4444; padding:6px 12px; margin-left:5px">DEMOTE</button>` : ''}
+                                    ${u.pending_privilege ? `<button onclick="adminClearGlow(\'${u.username}\')" class="btn-glass" style="border-color:#ffd700; color:#ffd700; padding:6px 12px; margin-left:5px">ACK</button>` : ''}
+                                </td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            </div>
         </div>
     `;
 }
